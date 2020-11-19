@@ -20,16 +20,16 @@ function getMarsWeather(marsWeather) {
         $('.showResponse').append(`<p>The average temperature on Mars was ${marsWeather[marsTempArray[i]].AT.av} degrees celcius on ${marsWeather[marsTempArray[i]].First_UTC}.<br> The current season on Mars is ${marsWeather[marsTempArray[i]].Season}.</p>`);
       }
     } else {
-      $('.showErrors1').text(`There was an error: ${marsWeather[marsTempArray[i]]}`);
+      $('.showErrors1').append(`There was an error: ${marsWeather[marsTempArray[i]]}`);
     }
   } 
 }
 function getApod (apodApi) {
   if(apodApi.url && apodApi.explanation) {
     
-    $('.showApod').append(`<img id="apod" src="${apodApi.url}" alt="${apodApi.explanation}" /> `);
+    $('.showApod').html(`<img id="apod" src="${apodApi.url}" alt="${apodApi.explanation}" width="300px" height="auto" /> `);
   } else {
-    $('showErrors2').text(`There was an error: ${apodApi}`);
+    $('.showErrors2').text(`There was an error: ${apodApi}`);
   }
 
 }
@@ -41,7 +41,6 @@ function getApod (apodApi) {
 
 $(document).ready(function() {
   
-  
   $('#weatherButton').click(function() {
    clearFields();
    (async function() {
@@ -49,6 +48,7 @@ $(document).ready(function() {
      getMarsWeather(marsWeather);
    })();
   });
+  
   $('#getApod').click(function() {
     (async function() {
       const apodApi = await Apod.getApod();
